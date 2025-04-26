@@ -1,0 +1,30 @@
+# Default values for leader-election-webhook
+replicaCount: 1
+
+image:
+  repository: haoli1/leader-election-crd-webhook
+  pullPolicy: IfNotPresent
+  tag: v1.0.2
+
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: "leader-election-webhook"
+
+rbac:
+  create: true
+  clusterRole: "leader-election-webhook"
+
+service:
+  type: ClusterIP
+  port: 443
+  targetPort: 8443
+
+tls:
+  # Secret containing the TLS certificate and key
+  secretName: "webhook-certs"

@@ -1,0 +1,62 @@
+# The Java classes will then be used to recreate this CR in target/classes/META-INF/fabric8
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: leaderelections.sample.operator.javaoperatorsdk.io
+spec:
+  group: sample.operator.javaoperatorsdk.io
+  names:
+    kind: LeaderElection
+    singular: leaderelection
+    plural: leaderelections
+    shortNames:
+    - le
+    - les
+  scope: Namespaced
+  conversion:
+    strategy: Webhook
+    webhook:
+      clientConfig:
+        service:
+          namespace: {{ .Release.Namespace }}
+          name: leader-election-webhook
+          path: /convert
+          port: 443
+        caBundle: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURDekNDQWZPZ0F3SUJBZ0lVYUk1ZXFjb2ZWNzA5eXEweFE0TFEzYnRGTFJFd0RRWUpLb1pJaHZjTkFRRUwKQlFBd0ZURVRNQkVHQTFVRUF3d0tkMlZpYUc5dmF5MWpZVEFlRncweU5UQTBNekF4T1RFNU5UTmFGdzB6TlRBMApNamd4T1RFNU5UTmFNQlV4RXpBUkJnTlZCQU1NQ25kbFltaHZiMnN0WTJFd2dnRWlNQTBHQ1NxR1NJYjNEUUVCCkFRVUFBNElCRHdBd2dnRUtBb0lCQVFDMndiM25Ta1VVNlV1b0pDRE4vY1pBRTVVSk5HbmhZZXJncHRoa2l5aHQKUjdTTU00N1RNN3pXWVVyOGFDOEZJODExZGFYQmJiaXZTZVJwVHJhZHZZcVJseCtqeDg0aWg3SDdYS3FRVko4MQpIQnNuamdTWTZ5SnE1TldMZ08vcVFEWTBpNkV3OFFrREVpRWRSVjB5U21XSkZiWFRMczdEVVJHRTU3emhtd2laCmk5UTF2TmNoL1RmUFFBcmt5MGVhcC9mMG10MkZyUDZFMnRldGtwZzJyNXFPcVBuYUZ4R1lQSjZaajBQdFJtT0cKNlhKejJLNGVpbWQvSkVMU0ZLaHpncVVYZWN0SWJnWEQxbmFvQnl1YnFnbTQwcEhwdmVaZkZ4VERrWjJ3dVN0awpzZHJGU01OMjIycjRhWjdiWk9DaEZZUkk1bVZoQXNTKzg3ZGphM0kwS3FoakFnTUJBQUdqVXpCUk1CMEdBMVVkCkRnUVdCQlRiUTNZSUZkSk00RXFycDVxc055NTM4bWJHZ1RBZkJnTlZIU01FR0RBV2dCVGJRM1lJRmRKTTRFcXIKcDVxc055NTM4bWJHZ1RBUEJnTlZIUk1CQWY4RUJUQURBUUgvTUEwR0NTcUdTSWIzRFFFQkN3VUFBNElCQVFCcgpPQUNkcUVQSUVZcXQxbjlGeXVtZmY0R3ZjSjc1UUZrNngrdkJDVEFHaEh1Y0REZlNBemtNLzlqVDBMWVMweVlyCkUrOWtPMFJxNnF0SmtSTzl4aUh0WnlYVzlDOENxaDVFYk1CYzRrZ2ROclZwNVlFTlVneHQyNGs5V2FVTUpxdmMKaUFKQmpsY1ZsbkJOYW9acUlkalJySUNUR3Jrcks1N3R1MnkrUnZEK3Z2TUo3ZUp0bUJCU0lERnR3Q0tleVVlZwpweWsyWUxCZzh1RUlrUE1YY0pFeGdLK1gwZlR4ejlhcjh2UmFISitRRHBlZ0JVdkxiNmpNVW4wdFlPcWhxaXdHCjFxU2k0THdqQWhBVEdmT2FOMUxyVHErVW0wNUJxbkJxdDUzVW1DQ2NRc3pTeDFWQk5xSzZpQUN2UEQra2lFWXgKdnB5UytlRWhUd0tkOFJyY2pib1cKLS0tLS1FTkQgQ0VSVElGSUNBVEUtLS0tLQo=
+      conversionReviewVersions: ["v1"]
+  versions:
+  - name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        properties:
+          status:
+            properties:
+              reconciledBy:
+                items:
+                  type: string
+                type: array
+            type: object
+        type: object
+        # x-kubernetes-preserve-unknown-fields: true
+    served: true
+    storage: false
+    subresources:
+      status: {}
+  - name: v1alpha2
+    schema:
+      openAPIV3Schema:
+        properties:
+          status:
+            properties:
+              reconciledBy:
+                items:
+                  type: string
+                type: array
+              addedField:
+                type: string
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}

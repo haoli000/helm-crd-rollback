@@ -1,0 +1,4 @@
+apiVersion: "sample.operator.javaoperatorsdk.io/v1alpha2"
+kind: LeaderElection
+metadata:
+  name: leader1

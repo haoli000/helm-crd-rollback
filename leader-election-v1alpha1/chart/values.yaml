@@ -1,0 +1,21 @@
+# Default values for leader-election-operator
+replicaCount: 1
+
+image:
+  repository: haoli1/leader-election-operator
+  pullPolicy: IfNotPresent
+  tag: v1.0.1
+
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: "leader-election-operator"
+
+rbac:
+  create: true
+  clusterRole: "leader-election-operator"

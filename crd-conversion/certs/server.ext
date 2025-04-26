@@ -1,0 +1,10 @@
+authorityKeyIdentifier=keyid,issuer
+basicConstraints=CA:FALSE
+keyUsage = digitalSignature, nonRepudiation, keyEncipherment, dataEncipherment
+subjectAltName = @alt_names
+
+[alt_names]
+DNS.1 = leader-election-webhook
+DNS.2 = leader-election-webhook.default
+DNS.3 = leader-election-webhook.default.svc
+DNS.4 = leader-election-webhook.default.svc.cluster.local
